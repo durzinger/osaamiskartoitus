@@ -1,0 +1,89 @@
+[
+  {
+    "name": "Mikko",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 0
+      },
+      {
+        "skill": "CSS",
+        "grade": 1
+      },
+      {
+        "skill": "JS",
+        "grade": 2
+      },
+      {
+        "skill": "REACT",
+        "grade": 3
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 4
+      },
+      {
+        "skill": "SQL",
+        "grade": 5
+      }
+    ]
+  },
+  {
+    "name": "Zabi",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 5
+      },
+      {
+        "skill": "CSS",
+        "grade": 4
+      },
+      {
+        "skill": "JS",
+        "grade": 3
+      },
+      {
+        "skill": "REACT",
+        "grade": 2
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 1
+      },
+      {
+        "skill": "SQL",
+        "grade": 0
+      }
+    ]
+  },
+  {
+    "name": "Juhis",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 3
+      },
+      {
+        "skill": "CSS",
+        "grade": 4
+      },
+      {
+        "skill": "JS",
+        "grade": 5
+      },
+      {
+        "skill": "REACT",
+        "grade": 0
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 1
+      },
+      {
+        "skill": "SQL",
+        "grade": 2
+      }
+    ]
+  }
+]
