@@ -4,13 +4,23 @@ import "../styles/MainPage.scss";
 
 const skills = ["HTML", "CSS", "JS", "REACT", "PYTHON", "SQL"];
 
-const FrontPage = () => {
+const initSkills = () => {
+  const skill_list = [];
+  for (let i = 0; i < skills.length; i++) {
+    skill_list.push({ skill: skills[i], grade: 0 });
+  }
+  return skill_list;
+};
+
+const MainPage = () => {
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [userskills, setUserskills] = useState([]);
 
   useEffect(() => {
+    setUserskills(initSkills());
     setUsers(usermock);
   }, []);
 
@@ -19,8 +29,10 @@ const FrontPage = () => {
       <div className="content">
         <div className="left-content">
           <div className="name-content">
-            {users.map((user) => (
-              <div className="name-label">{user.name}</div>
+            {users.map((user, index) => (
+              <div className="name-label" key={index}>
+                {user.name}
+              </div>
             ))}
           </div>
         </div>
@@ -28,12 +40,14 @@ const FrontPage = () => {
           <div className="matrix">
             <div className="skills-row title">
               <div className="name-label">Käyttäjä</div>
-              {skills.map((skill) => (
-                <div className="skills-label">{skill}</div>
+              {skills.map((skill, index) => (
+                <div className="skills-label" key={index}>
+                  {skill}
+                </div>
               ))}
             </div>
             {users.map((user, index) => (
-              <div className={`skills-row ${index % 2 === 0 && "even"}`} key={index}>
+              <div className={`skills-row ${index % 2 === 0 ? "even" : ""}`} key={index}>
                 <div className="name-label">{user.name}</div>
                 {user.skills.map((skill, index) => (
                   <div className="skills-label" key={index}>
@@ -61,15 +75,47 @@ const FrontPage = () => {
                     <input type="password" placeholder="Salasana" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                 </div>
+                <div className="skills-content">
+                  {userskills.map((skill, index) => (
+                    <div className="skill-row" key={index}>
+                      <div className="skill-label">
+                        <label>{skill.skill}</label>
+                      </div>
+                      <div className="skill-input">
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          value={skill.grade}
+                          onChange={(e) => {
+                            let userskills_copy = JSON.parse(JSON.stringify(userskills));
+                            userskills_copy[index].grade = e.target.value;
+                            setUserskills(userskills_copy);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <button
-                className="modal-button"
-                onClick={() => {
-                  setShowModal(false);
-                }}
-              >
-                Sulje
-              </button>
+              <div className="button-content">
+                <button
+                  className="modal-button"
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                >
+                  Sulje
+                </button>
+                <button
+                  className="modal-button"
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                >
+                  Sulje
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -78,4 +124,4 @@ const FrontPage = () => {
   );
 };
 
-export default FrontPage;
+export default MainPage;
