@@ -88,7 +88,7 @@ const MainPage = () => {
               <div className="name-label">Käyttäjä</div>
               {skills.map((skill, index) => (
                 <div className="skills-label" key={index}>
-                  {skill < 9 ? skill : skill.substring(0, 9)}
+                  {skill < 7 ? skill : skill.substring(0, 7)}
                 </div>
               ))}
             </div>
