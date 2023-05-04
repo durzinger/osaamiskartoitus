@@ -17,6 +17,7 @@
       justify-content: center;
       width: 260px;
       background: rgb(213, 232, 238);
+      padding-top: 50px;
 
       .name-content {
         display: flex;
@@ -24,12 +25,18 @@
         justify-content: flex-start;
         width: 100%;
         height: 900px;
-        gap: 10px;
+        gap: 15px;
 
         .name-label {
           display: flex;
           justify-content: center;
           align-items: center;
+          font-family: "Inter", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 20px;
+          text-align: center;
         }
       }
     }
@@ -48,6 +55,11 @@
         flex-direction: column;
         justify-content: flex-start;
         width: 100%;
+        font-family: "Inter", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
 
         .skills-row {
           display: flex;
@@ -110,18 +122,49 @@
   position: fixed;
   z-index: 1000;
   border: 1px #9c9797 solid;
-  width: 500px;
-  height: 800px;
+  width: 460px;
+  height: 760px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding: 20px;
 
   .modal-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
+
+    .name-password-inputs {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+      width: 100%;
+
+      .input-field {
+        width: 100%;
+        height: 50px;
+
+        input {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 375px;
+          height: 50px;
+          font-family: "Inter", sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 20px;
+          text-align: left;
+          padding: 0 12px;
+          border: 1px solid black;
+          border-radius: 4px;
+        }
+      }
+    }
 
     .modal-button {
       display: flex;

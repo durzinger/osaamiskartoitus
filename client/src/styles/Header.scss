@@ -1,0 +1,58 @@
+.header-main {
+  display: flex;
+  justify-content: space-around;
+  height: 4rem;
+  width: 100%;
+  background: #9fc9eb;
+  font-family: "Inter", sans-serif;
+  margin-bottom: auto;
+  margin-left: 0;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+
+  .header-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    gap: 5px;
+    color: black;
+    cursor: pointer;
+
+    .dropdown {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .dropdown-content {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 32px;
+        bottom: -60px;
+        right: 0;
+        z-index: 1;
+        background: rgb(241, 235, 235);
+        box-shadow: 1px 2px black;
+        color: black;
+        font-family: "Inter", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+        text-align: center;
+      }
+    }
+  }
+}
