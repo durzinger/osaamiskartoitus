@@ -9,13 +9,102 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 db = myclient["expertise"]
 col = db["user"]
 col.drop()
-testrow = {"name": "Nimi1", "html": 1, "css": 2}
-testrow2 = {"name": "Nimi2", "html": 3, "css": 4}
+#testrow = {"name": "Nimi1", "html": 1, "css": 2}
+#testrow2 = {"name": "Nimi2", "html": 3, "css": 4}
+testrow = {
+    "name": "Mikko",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 0
+      },
+      {
+        "skill": "CSS",
+        "grade": 1
+      },
+      {
+        "skill": "JS",
+        "grade": 2
+      },
+      {
+        "skill": "REACT",
+        "grade": 3
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 4
+      },
+      {
+        "skill": "SQL",
+        "grade": 5
+      }
+    ]
+  }
+testrow2 = {
+    "name": "Zabi",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 5
+      },
+      {
+        "skill": "CSS",
+        "grade": 4
+      },
+      {
+        "skill": "JS",
+        "grade": 3
+      },
+      {
+        "skill": "REACT",
+        "grade": 2
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 1
+      },
+      {
+        "skill": "SQL",
+        "grade": 0
+      }
+    ]
+  }
+testrow3 = {
+    "name": "Juhis",
+    "skills": [
+      {
+        "skill": "HTML",
+        "grade": 3
+      },
+      {
+        "skill": "CSS",
+        "grade": 4
+      },
+      {
+        "skill": "JS",
+        "grade": 5
+      },
+      {
+        "skill": "REACT",
+        "grade": 0
+      },
+      {
+        "skill": "PYTHON",
+        "grade": 1
+      },
+      {
+        "skill": "SQL",
+        "grade": 2
+      }
+    ]
+  }
 x = col.insert_one(testrow)
 x2 = col.insert_one(testrow2)
+x3 = col.insert_one(testrow3)
 
 print(x.inserted_id)
 print(x2.inserted_id)
+print(x3.inserted_id)
 
 @app.route('/user', methods=['GET'])
 def get_users():
