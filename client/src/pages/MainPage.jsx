@@ -1,8 +1,28 @@
 import { useState, useEffect } from "react";
-import usermock from "../usermocking.json";
 import "../styles/MainPage.scss";
 
-const skills = ["HTML", "CSS", "JS", "REACT", "PYTHON", "SQL"];
+const skills = [
+  "HTML",
+  "CSS",
+  "Javascript",
+  "Python",
+  "SQL",
+  "React",
+  "VUE",
+  "Ruby",
+  "Typescript",
+  "PHP",
+  "C++",
+  "Java",
+  "Design UI/UX",
+  "Leadership",
+  "CSS Frameworks",
+  "MERN/PERN",
+  "Scrum",
+  "Svelte",
+  "Node.JS",
+  "GIT/SVN",
+];
 
 const initSkills = () => {
   const skill_list = [];
@@ -13,32 +33,43 @@ const initSkills = () => {
 };
 
 const MainPage = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([{ name: "", skills: [] }]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [userskills, setUserskills] = useState([]);
 
+  const fetchUsers = async () => {
+    const userlist = [];
+    await fetch("http://localhost:8000/user")
+      .then((response) => response.json())
+      .then((data) =>
+        data.forEach((d) => {
+          userlist.push(d);
+        })
+      );
+    setUsers(userlist);
+  };
+
   useEffect(() => {
     setUserskills(initSkills());
-    setUsers(usermock);
+    fetchUsers();
   }, []);
 
   const createUser = async () => {
-    let userdata = { name: name };
-    console.log(userdata);
     try {
-      const res = await fetch("http://localhost:8000/user", {
+      await fetch("http://localhost:8000/user", {
         method: "POST",
         headers: {
           "content-type": "application/JSON",
         },
-        body: userdata,
+        body: JSON.stringify({ name: name, skills: userskills }),
       });
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <div className="main">
       <div className="content">
@@ -57,7 +88,7 @@ const MainPage = () => {
               <div className="name-label">Käyttäjä</div>
               {skills.map((skill, index) => (
                 <div className="skills-label" key={index}>
-                  {skill}
+                  {skill < 9 ? skill : skill.substring(0, 9)}
                 </div>
               ))}
             </div>
@@ -118,6 +149,7 @@ const MainPage = () => {
                   className="modal-button"
                   onClick={() => {
                     createUser();
+                    setShowModal(false);
                   }}
                 >
                   tallenna
