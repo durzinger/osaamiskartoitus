@@ -1,9 +1,11 @@
 from flask import Flask, request
+from flask_cors import CORS
 import pymongo
 from bson import json_util
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
+CORS(app)
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 db = myclient["expertise"]
