@@ -24,6 +24,21 @@ const MainPage = () => {
     setUsers(usermock);
   }, []);
 
+  const createUser = async () => {
+    let userdata = { name: name };
+    console.log(userdata);
+    try {
+      const res = await fetch("http://localhost:8000/user", {
+        method: "POST",
+        headers: {
+          "content-type": "application/JSON",
+        },
+        body: userdata,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="main">
       <div className="content">
@@ -102,10 +117,10 @@ const MainPage = () => {
                 <button
                   className="modal-button"
                   onClick={() => {
-                    setShowModal(false);
+                    createUser();
                   }}
                 >
-                  Sulje
+                  tallenna
                 </button>
                 <button
                   className="modal-button"
