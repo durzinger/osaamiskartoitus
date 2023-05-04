@@ -33,28 +33,37 @@ const initSkills = () => {
 };
 
 const MainPage = () => {
-  const [users, setUsers] = useState([{ name: "", skills: [] }]);
+  const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [userskills, setUserskills] = useState([]);
 
   const fetchUsers = async () => {
-    const userlist = [];
-    await fetch("http://localhost:8000/user")
-      .then((response) => response.json())
-      .then((data) =>
-        data.forEach((d) => {
-          userlist.push(d);
-        })
-      );
-    setUsers(userlist);
+    try {
+      const userlist = [];
+      const res = await fetch("http://localhost:8000/user")
+      const data = res.json()
+      data.forEach((user) => {
+        userlist.push(user);
+      })
+      setUsers(userlist);
+    } catch(error) {
+        console.log(error);
+    }
   };
 
-  useEffect(() => {
-    setUserskills(initSkills());
-    fetchUsers();
-  }, []);
+  // const fetchUsers = async () => {
+  //   const userlist = [];
+  //   await fetch("http://localhost:8000/user")
+  //     .then((response) => response.json())
+  //     .then((data) =>
+  //       data.forEach((d) => {
+  //         userlist.push(d);
+  //       })
+  //     );
+  //   setUsers(userlist);
+  // };
 
   const createUser = async () => {
     try {
@@ -69,6 +78,11 @@ const MainPage = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setUserskills(initSkills());
+    fetchUsers();
+  }, []);
 
   return (
     <div className="main">
