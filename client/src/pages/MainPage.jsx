@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import editicon from "../assets/editicon-33x30.png";
 import "../styles/MainPage.scss";
 
 const skills = [
@@ -38,6 +39,8 @@ const MainPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [userskills, setUserskills] = useState([]);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [userid, setUserid] = useState("");
 
   const fetchUsers = async () => {
     try {
@@ -67,10 +70,33 @@ const MainPage = () => {
     }
   };
 
+  const updateUser = async () => {
+    try {
+      await fetch(`http://localhost:8000/user/${userid}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/JSON",
+        },
+        body: JSON.stringify({ $set: { skills: userskills } }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setUserskills(initSkills());
     fetchUsers();
   }, []);
+
+  const editSkills = (id) => {
+    setUpdateModal(true);
+    const index = users.findIndex((user) => user._id.$oid === id);
+    setUserskills(users[index].skills);
+    setName(users[index].name);
+    setUserid(id);
+    setShowModal(true);
+  };
 
   return (
     <div className="main">
@@ -78,8 +104,11 @@ const MainPage = () => {
         <div className="left-content">
           <div className="name-content">
             {users.map((user, index) => (
-              <div className="name-label" key={index}>
-                {user.name}
+              <div className="name-icon" key={index}>
+                <div className="name-label">{user.name}</div>
+                <div className="icon">
+                  <img src={editicon} alt="" onClick={() => editSkills(user._id.$oid)} />
+                </div>
               </div>
             ))}
           </div>
@@ -106,7 +135,15 @@ const MainPage = () => {
             ))}
           </div>
           <div className="button-container">
-            <button onClick={() => setShowModal(true)}>Lisää käyttäjä</button>
+            <button
+              onClick={() => {
+                setName("");
+                setUserskills(initSkills());
+                setShowModal(true);
+              }}
+            >
+              Lisää käyttäjä
+            </button>
           </div>
         </div>
       </div>
@@ -115,14 +152,25 @@ const MainPage = () => {
           <div className="modal">
             <div className="modal-container">
               <div className="modal-field-content">
-                <div className="name-password-inputs">
-                  <div className="input-field">
-                    <input type="text" placeholder="Nimi" value={name} onChange={(e) => setName(e.target.value)} />
+                {updateModal ? (
+                  <div className="name-password-inputs">
+                    <div className="input-field">
+                      <input type="text" placeholder="Nimi" disabled value={name} />
+                    </div>
+                    <div className="input-field">
+                      <input type="password" placeholder="Salasana" disabled />
+                    </div>
                   </div>
-                  <div className="input-field">
-                    <input type="password" placeholder="Salasana" value={password} onChange={(e) => setPassword(e.target.value)} />
+                ) : (
+                  <div className="name-password-inputs">
+                    <div className="input-field">
+                      <input type="text" placeholder="Nimi" value={name} onChange={(e) => setName(e.target.value)} />
+                    </div>
+                    <div className="input-field">
+                      <input type="password" placeholder="Salasana" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="skills-content">
                   {userskills.map((skill, index) => (
                     <div className="skill-row" key={index}>
@@ -147,19 +195,35 @@ const MainPage = () => {
                 </div>
               </div>
               <div className="button-content">
+                {updateModal ? (
+                  <button
+                    className="modal-button"
+                    onClick={() => {
+                      updateUser();
+                      setShowModal(false);
+                      setUpdateModal(false);
+                      setUserid("");
+                    }}
+                  >
+                    Päivitä
+                  </button>
+                ) : (
+                  <button
+                    className="modal-button"
+                    onClick={() => {
+                      createUser();
+                      setShowModal(false);
+                    }}
+                  >
+                    tallenna
+                  </button>
+                )}
                 <button
                   className="modal-button"
                   onClick={() => {
-                    createUser();
                     setShowModal(false);
-                  }}
-                >
-                  tallenna
-                </button>
-                <button
-                  className="modal-button"
-                  onClick={() => {
-                    setShowModal(false);
+                    setUpdateModal(false);
+                    setUserid("");
                   }}
                 >
                   Sulje
