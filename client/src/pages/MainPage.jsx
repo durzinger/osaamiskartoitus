@@ -42,28 +42,16 @@ const MainPage = () => {
   const fetchUsers = async () => {
     try {
       const userlist = [];
-      const res = await fetch("http://localhost:8000/user")
-      const data = res.json()
+      const res = await fetch("http://localhost:8000/user");
+      const data = await res.json();
       data.forEach((user) => {
         userlist.push(user);
-      })
+      });
       setUsers(userlist);
-    } catch(error) {
-        console.log(error);
+    } catch (error) {
+      console.log(error);
     }
   };
-
-  // const fetchUsers = async () => {
-  //   const userlist = [];
-  //   await fetch("http://localhost:8000/user")
-  //     .then((response) => response.json())
-  //     .then((data) =>
-  //       data.forEach((d) => {
-  //         userlist.push(d);
-  //       })
-  //     );
-  //   setUsers(userlist);
-  // };
 
   const createUser = async () => {
     try {
